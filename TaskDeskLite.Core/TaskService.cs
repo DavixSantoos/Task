@@ -67,12 +67,14 @@ public class TaskService : ITaskService
        
                 }
 
-    public void MarkAsDone(Guid id)
+    public TaskItem MarkAsDone(Guid id)
     {
+        var task = GetById(id);
+            task.Status = TaskStatus.Done;
+            task.DueDate = DateTime.UtcNow;
 
-        
+        return task;
 
-        
 
     }
 }

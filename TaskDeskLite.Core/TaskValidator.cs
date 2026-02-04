@@ -4,8 +4,11 @@ public static class TaskValidator
 {
     private static readonly string[] ForbiddenWords = { "hack", "drop", "delete" };
 
+   
     public static void ValidateForCreateOrUpdate(TaskItem task)
     {
+        TaskValidator.ValidateForCreateOrUpdate(task);
+
         if (task is null) throw new DomainValidationException("Tarefa inválida.");
 
         var title = (task.Title ?? "").Trim();
@@ -13,17 +16,29 @@ public static class TaskValidator
         if (string.IsNullOrWhiteSpace(title))
             throw new DomainValidationException("Título é obrigatório.");
 
-        if (title.Length <3 || title.Length > 40)
-            throw new DomainValidationException("Título deve ter entre 3 e 40 caracteres.");
+        if (title.Length < 3)
+            throw new DomainValidationException("Título muito curto.");
+
+        if (title.Length > 40)
+            throw new DomainValidationException("Título muito longo.");
 
         if (ForbiddenWords.Any(w => title.Contains(w, StringComparison.OrdinalIgnoreCase)))
             throw new DomainValidationException("Título contém termo não permitido.");
 
         if (!Enum.IsDefined(typeof(TaskPriority), task.Priority))
+        {
             throw new DomainValidationException("Prioridade inválida.");
-
-        if (task.Description is not null && task.Description.Length <= 200)
+        }
+        if (task.Description != null && task.Description.Length > 200)
+        {
             throw new DomainValidationException("Descrição deve ter no máximo 200 caracteres.");
+        }
+        
+        if (task.Title == null || task.Title.Trim().Length < 3)
+        {
+            throw new DomainValidationException("Descrição deve ter no máximo 3 letras.");
+        }
+
 
         if (task.DueDate.HasValue)
         {
