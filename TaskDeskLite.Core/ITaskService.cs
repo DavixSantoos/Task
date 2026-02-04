@@ -6,7 +6,7 @@ public interface ITaskService
     TaskItem GetById(Guid id);
 
     TaskItem Create(TaskItem task);
-
+    
     TaskItem Update(TaskItem task);
 
     void Delete(Guid id);

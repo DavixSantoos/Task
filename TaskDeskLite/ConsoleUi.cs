@@ -65,7 +65,7 @@ public static class ConsoleUi
             Console.WriteLine("GUID inválido. Exemplo: 3f2504e0-4f89-11d3-9a0c-0305e82c3301");
         }
     }
-
+    
     public static DateTime? ReadOptionalDate(string label)
     {
         while (true)

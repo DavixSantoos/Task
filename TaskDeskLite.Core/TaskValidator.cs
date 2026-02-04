@@ -13,7 +13,7 @@ public static class TaskValidator
         if (string.IsNullOrWhiteSpace(title))
             throw new DomainValidationException("Título é obrigatório.");
 
-        if (title.Length < 3 || title.Length > 40)
+        if (title.Length <3 || title.Length > 40)
             throw new DomainValidationException("Título deve ter entre 3 e 40 caracteres.");
 
         if (ForbiddenWords.Any(w => title.Contains(w, StringComparison.OrdinalIgnoreCase)))
@@ -22,7 +22,7 @@ public static class TaskValidator
         if (!Enum.IsDefined(typeof(TaskPriority), task.Priority))
             throw new DomainValidationException("Prioridade inválida.");
 
-        if (task.Description is not null && task.Description.Length > 200)
+        if (task.Description is not null && task.Description.Length <= 200)
             throw new DomainValidationException("Descrição deve ter no máximo 200 caracteres.");
 
         if (task.DueDate.HasValue)
