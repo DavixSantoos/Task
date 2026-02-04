@@ -70,12 +70,9 @@ public class TaskService : ITaskService
     public void MarkAsDone(Guid id)
     {
 
-        var task = _tasks.FirstOrDefault(t => t.Id == id);
-
-        if (task == null)
-            throw new NotImplementedException("Tarefa não encontrada.");
-
-        _tasks.Remove(task);
         
+
+        
+
     }
 }
